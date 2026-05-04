@@ -1,0 +1,9 @@
+.ssh/
+.codemie/
+{{ENV_FILE}}
+vendor/
+node_modules/
+
+# Add project-specific sensitive paths below.
+# /init-harness will add detected .env files and private directories.
+# {{SENSITIVE_PATHS}}

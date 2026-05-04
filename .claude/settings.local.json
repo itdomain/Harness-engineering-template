@@ -1,0 +1,15 @@
+{
+  "_comment": "Baseline permissions. /init-harness will regenerate this file with stack-specific rules.",
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(npx playwright*)",
+      "Bash(ls *)",
+      "Bash(pwd)",
+      "Bash(echo *)"
+    ],
+    "deny": [
+      "Read({{ENV_FILE}})"
+    ]
+  }
+}
