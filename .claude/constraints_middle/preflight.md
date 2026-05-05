@@ -4,6 +4,23 @@
 
 ## Checklist
 
+
+### Harness Changes
+
+> **Applies when:** any file under `.claude/` or `.knowledge_base/` is being added, modified, or deleted.
+
+- [ ] Read `.knowledge_base/harness_engineering_reference/INDEX.md` first to orient
+- [ ] Identify which harness layer the change affects (Inner / Middle / Outer / Boundary)
+- [ ] Consult the corresponding reference file for that layer:
+  - Inner (`.claude/context_inner/`) → `context_and_constraints.md`
+  - Middle (`.claude/constraints_middle/`) → `guides.md`
+  - Outer (`.claude/controls_outer/`) → `verification_loops.md` + `sensors/INDEX.md`
+  - Boundary (`.claude/handoff_boundary/`) → `human_in_the_loop.md`
+- [ ] Change is consistent with the 4-layer concentric architecture — no cross-layer bypass
+- [ ] Feedforward controls (Middle layer) remain strictly pre-change; sensors (Outer layer) remain strictly post-change
+- [ ] No project-codebase logic mixed into harness files
+- [ ] Registries updated if adding/removing/renaming agents, commands, or skills (`AGENTS.md`, `COMMANDS.md`, `SKILLS.md`)
+
 ### Naming
 - [ ] Consult `.claude/constraints_middle/DOMAIN_GLOSSARY.md` before naming anything
 - [ ] Use canonical glossary terms — never invent synonyms or abbreviations
