@@ -72,6 +72,8 @@ See `.claude/constraints_middle/CONSULT_THE_GLOSSARY.md` for detailed instructio
 - **Architectural:** `.claude/constraints_middle/architectural-constraints.md`
 
 **Hard gate — after every code change:** Read `controls_outer/health-check.md` for automated verification after changes.
+**Hard gate — before any harness change** (any file under `.claude/` or `.knowledge_base/`): Consult `.knowledge_base/harness_engineering_reference/INDEX.md` and verify the change aligns with Harness Engineering principles. Complete the "Harness Changes" checklist in `preflight.md` before proceeding.
+
 
 ## Harness Structure
 
