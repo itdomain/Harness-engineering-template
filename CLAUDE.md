@@ -106,15 +106,3 @@ The harness is organized hierarchically following Harness Engineering principles
 ### Typography
 
 > After init, populate this section with your typography system. See `.claude/context_inner/architecture.md` for full typography documentation.
-
-### SDD Flow Diagram
-
-The SDD workflow is visualized in `specs/assets/sdd-flow.svg`. **Update the SVG whenever the workflow changes** — adding/removing phases, agents, file paths, or feedback loops. The mutation phase (Phase 4.5) is optional per-feature and gated by the opt-in decision at SDD start.
-
-**Maintenance rules:**
-- Keep the SVG in sync with CLAUDE.md's SDD Workflow section. Every command, agent, and phase must appear in the diagram.
-- Preserve the project palette (`{{COLOR_BG}}`, `{{COLOR_ACCENT}}`, `{{COLOR_HIGHLIGHT}}`, `{{COLOR_ERROR}}` for FAIL paths).
-- Each phase row is self-contained (Command → Agent → Output → Details).
-- The feedback loop (FAIL → fix_request.md → re-evaluation) must always be visible.
-- Footer must list all file paths and agent references.
-- viewBox: `0 0 1200 920`. Use `&lt;` for `<` in SVG text.
