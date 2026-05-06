@@ -56,7 +56,7 @@ Does the code do what it should? Security, accessibility, performance. Prevents 
 - HSTS enforcement (`max-age=31536000; includeSubDomains`)
 - AAA-level accessibility (3px focus indicators, alt text, form labels)
 
-### 4. Resource Management (Opt-in Gates)
+## Resource Management (Opt-in Gates)
 
 Decisions about which sensors to enable per-feature. Prevents wasting computational resources on low-value feedback loops.
 

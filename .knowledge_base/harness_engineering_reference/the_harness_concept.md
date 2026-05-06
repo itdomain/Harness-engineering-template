@@ -24,10 +24,6 @@ The harness anticipates errors and enables automatic correction. It is engineere
    - Outer layer: sensors and feedback (how the model learns from outcomes)
    - Boundary layer: human collaboration (when the model asks for help)
 
-## Implications for This Project
-
-The current CLAUDE.md + .claude/ structure is a single-layer harness. It works because the project is small, but it lacks the layered defense that Fowler describes. The refactor moves from a single context file to concentric context layers, where each layer has a distinct role.
-
 ## References
 
 - Birgitta Böckeler, "Harness engineering for coding agent users" (2026-04-02) - https://martinfowler.com/articles/harness-engineering.html

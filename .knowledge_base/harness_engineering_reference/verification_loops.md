@@ -49,7 +49,7 @@ Handle gradual drift outside active development cycles:
 - **Post-change** (`controls_outer/health-check.md`): Automated verification after changes
 - **Continuous** (`controls_outer/drift-detection.md`): Periodic checks for architectural drift
 - **SDD-specific**: Existing verification loops preserved and enhanced
-- **Mutation hardening** (post-TDD, pre-validation): Mutation testing via Stryker to maximize test suite sensitivity
+- **Mutation hardening** (post-TDD, pre-validation): Mutation testing via Stryker or similar Mutation Testing frameworks to maximize test suite sensitivity
 
 ## Key Takeaway
 
