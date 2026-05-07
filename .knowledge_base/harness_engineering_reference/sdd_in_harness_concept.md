@@ -165,7 +165,7 @@ Without the feedforward and feedback gates, SDD is a blunt instrument. With them
 ## References
 
 - Birgitta Böckeler, "Harness engineering for coding agent users" (2026-04-02) - https://martinfowler.com/articles/harness-engineering.html
-- Ray Wang, "Exploring Gen AI: SDD-3 Tools" (2026) - https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html
+- Birgitta Böckeler, "Understanding Spec-Driven-Development" (2026-10-15) - https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html
 - Kent Beck - "Test Driven Development: By Example" (TDD) (2002)
 - Larry Smith, "Shift-Left Testing" (2001)
 - DeMillo, R. A., Lipton, R. J., & Sayward, F. G. (1978-04-29). "Hints on Test Data Selection: Help for the Practicing Programmer". Page(s): 34 - 41. , Coupling Effect - https://doi.org/10.1109/C-M.1978.218136
