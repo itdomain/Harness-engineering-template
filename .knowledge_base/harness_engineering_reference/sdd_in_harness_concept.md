@@ -39,7 +39,7 @@ Spec-Driven Development (SDD) is **neither a pure sensor nor a pure guide**. It 
 
 ### The Over-Specification Problem
 
-The SDD workflow tends to generate "verbose, repetitive markdown", causing developers to to "rather review code than all these markdown files". This is a signal that:
+The SDD workflow tends to generate "verbose, repetitive markdown", causing developers to "rather review code than all these markdown files". This is a signal that:
 
 1. **Spec overhead grows with feature size** — for small features, the spec is 80% of the artifact
 2. **AI sometimes ignores or over-follows specs** — non-determinism means specs are not guarantees
