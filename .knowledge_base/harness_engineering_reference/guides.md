@@ -36,25 +36,11 @@ Naming conventions, formatting, code organization. Prevents technical debt accum
 
 Patterns to preserve, patterns to avoid, structural invariants. Prevents architectural drift.
 
-**Examples in this project:**
-- {{TECH_STACK_SUMMARY}} architecture (no build step, no framework)
-- Thin {{PUBLIC_HANDLER_FILE}} stub delegates to handler
-- Secrets in `{{ENV_FILE}}`, never hardcoded
-- `{{SERVER_CONFIG_FILE}}` blocks dot-files from web access
-- All page content wrapped in `<main>` for semantic structure
 
 ### 3. Functional Correctness
 
 Does the code do what it should? Security, accessibility, performance. Prevents user-facing failures.
 
-**Examples in this project:**
-- CSRF tokens via `{{SECURE_COMPARE_FUNCTION}}()` timing-safe comparison
-- Input sanitization on all user inputs
-- Header injection prevention (strip `\r\n` from mail headers)
-- `{{SHARED_UTIL_FUNCTION}}()` DOM XSS prevention (no `.innerHTML` for user data)
-- Rate limiting: `{{RATE_LIMIT_VALUES}}`
-- HSTS enforcement (`max-age=31536000; includeSubDomains`)
-- AAA-level accessibility (3px focus indicators, alt text, form labels)
 
 ## Resource Management (Opt-in Gates)
 

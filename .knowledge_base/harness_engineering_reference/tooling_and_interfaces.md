@@ -5,7 +5,7 @@
 Harness engineering for coding agents concept encompases several categories of interfaces that form the harness:
 
 ### Language Servers and Static Analyzers
-Provide real-time feedback on code quality, type errors, and style violations. In this project's context ({{TECH_STACK_SUMMARY}}), these are less applicable than in typed languages, but {{TEST_FRAMEWORK}} serves as the primary verification interface for JavaScript.
+Provide real-time feedback on code quality, type errors, and style violations.
 
 ### Pre-commit Hooks
 Automated checks that run before code is committed. Currently absent from this project. The pre-flight checklist concept replaces this gap.
