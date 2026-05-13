@@ -24,13 +24,6 @@ Guides operate across three dimensions, each preventing a class of errors:
 
 Naming conventions, formatting, code organization. Prevents technical debt accumulation.
 
-**Examples in this project:**
-- CSS custom property usage (`--bg`, `--accent`, etc.) instead of hardcoded colors
-- JS loaded with `defer` attribute
-- No `target="_blank"` on external links
-- No inline event handlers
-- IIFE pattern for module encapsulation
-- Event delegation for DOM event handling
 
 ### 2. Architectural Constraints
 

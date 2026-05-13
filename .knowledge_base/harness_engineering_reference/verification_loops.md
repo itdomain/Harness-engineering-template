@@ -32,6 +32,8 @@ Deploy lightweight computational checks before heavier inferential analysis:
 ### Continuous Monitoring
 
 Handle gradual drift outside active development cycles:
+
+**Examples:**
 - Periodic dependency vulnerability checks
 - CSS custom property audit against documented palette
 - Section map verification against actual HTML
