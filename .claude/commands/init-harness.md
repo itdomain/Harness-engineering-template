@@ -53,6 +53,28 @@ Build these resolved values from the scan:
 | `INSTALL_COMMAND` | npm → `{{ADD_DEPENDENCY_COMMAND}}`; pnpm → `pnpm install`; yarn → `yarn`; pip → `pip install -r requirements.txt`; go → `go mod download`; cargo → `cargo build` |
 | `RUNTIME_VERSION` | `engines` field in package.json; go.mod go directive; python_requires in pyproject; else → "see README" |
 
+### Step 1b — CSS token extraction (static sites only)
+
+If no `package.json` found (pure static HTML/CSS site):
+
+1. Find all `*.css` files in project root and `assets/` directory.
+2. Read each CSS file and extract:
+   - `:root { --* }` blocks → global CSS custom properties (name + value)
+   - Scoped custom properties per selector (e.g. `section#hero { --color-accent: … }`)
+   - Hardcoded color values (`#hex`, `rgb()`, `rgba()`) used in more than one rule
+3. Detect design system type:
+   - `--step-*` + `--space-*` present → "Utopia fluid type + space scale"
+   - Bootstrap/Tailwind variables → note framework name
+   - Custom `--*` properties → extract directly
+4. Detect fonts: scan `font-family` rules → populate `HEADLINE_FONT` / `BODY_FONT`
+5. Build `CSS_TOKENS` map of candidate token names → extracted values. Pre-fill:
+   - `MAIN_STYLESHEET` = detected CSS filename(s)
+   - `PALETTE_TOKEN_1..5` = 5 most significant color values (prefer global `:root` tokens; fall back to section-scoped)
+   - `DESIGN_SYSTEM_NAME` = detected system name (Utopia / Bootstrap / Custom / none)
+   - `HEADLINE_FONT` / `BODY_FONT` = from `font-family` declarations
+6. Note if colors are **not** in global CSS custom properties → add advisory in report to consolidate into `:root`.
+7. Show extracted CSS tokens to user alongside scan results (before Q3).
+
 ---
 
 ## Step 2 — Present scan results + ask questions
@@ -259,28 +281,58 @@ Ensure `.gitkeep` exists in all expansion slot directories:
 
 ## Step 7 — Report
 
-Print a summary:
+Print a summary with three sections:
 
 ```
 Harness initialized for: <PROJECT_NAME>
 
 ✓ Files customized: <count>
 ✓ settings.local.json generated for: <PRIMARY_LANGUAGE> stack
+[if CSS tokens extracted]: ✓ CSS tokens extracted from <MAIN_STYLESHEET>
 
-Placeholders still set to TBD (need your domain knowledge):
-  - .claude/context_inner/architecture.md → fill in system architecture
-  - .claude/constraints_middle/DOMAIN_GLOSSARY.md → add domain terms
-  - .claude/constraints_middle/architectural-constraints.md → add preserve/avoid patterns
-  - .claude/constraints_middle/ubiquitous_language/business/GLOSSARY.md → business terms
-  - .claude/controls_outer/drift-detection.md → add project-specific drift checks
-  [list any other TBD placeholders found]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AUTO-FILLED (from scan — no action needed)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  PROJECT_NAME, PROJECT_SLUG, PROJECT_DESCRIPTION
+  PRIMARY_LANGUAGE, TECH_STACK_SUMMARY, RUNTIME_VERSION
+  MAIN_SOURCE_FILE(S), ENTRY_POINT_FILE, MAIN_STYLESHEET
+  PACKAGE_MANAGER, TEST_FRAMEWORK, TEST_COMMAND
+  MUTATION_TOOL, ENV_FILE, SERVER_CONFIG_FILE
+  AI_MODEL, PERFORMANCE_METRICS
+  [if CSS extracted]: PALETTE_TOKEN_1..5, DESIGN_SYSTEM_NAME, HEADLINE_FONT, BODY_FONT
+  [if CSS tokens not in :root]: ⚠ Colors are hardcoded per-section — consider consolidating
+    into :root CSS custom properties for easier theming.
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NEEDS-SOON (unblock harness gates — fill before first /start-sdd)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  .claude/context_inner/architecture.md
+    → UI_SECTION_MAP_OR_MODULE_MAP: describe page/module structure
+    → PALETTE_TOKEN_*: complete design token table (partial if CSS extracted)
+  .claude/constraints_middle/architectural-constraints.md
+    → PRESERVE_RULE_1..3: patterns that must never change
+    → ANTI_PATTERN_1..2: approaches to avoid and why
+  .claude/controls_outer/drift-detection.md
+    → MODULE_1, MODULE_2: primary modules to watch for drift
+    → DESIGN_TOKEN_1, DESIGN_TOKEN_2: tokens that signal visual regression
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NEEDS-DOMAIN-KNOWLEDGE (fill as domain solidifies — not blocking)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  .claude/constraints_middle/DOMAIN_GLOSSARY.md → canonical terms
+  .claude/constraints_middle/ubiquitous_language/business/GLOSSARY.md → offerings, bundles
+  .claude/constraints_middle/ubiquitous_language/organizational/GLOSSARY.md → roles, personas
+  .claude/constraints_middle/ubiquitous_language/development/GLOSSARY.md → tech terms
+  .claude/handoff_boundary/escalation-matrix.md → PUBLIC_HANDLER_FILE, PRIVATE_HANDLER_FILE
+  [list any remaining {{PLACEHOLDER}} found after scan]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Next steps:
-  1. Fill in .claude/context_inner/architecture.md
-  2. Add domain terms to .claude/constraints_middle/DOMAIN_GLOSSARY.md
-  3. Run /setup-local to verify your development environment
-  4. Run /start-sdd feature <category> <feature-name> to begin first feature
-  
+  1. Fill NEEDS-SOON items above (30 min)
+  2. Run /setup-local to verify dev environment
+  3. Run /start-sdd feature <category> <name> to begin first feature
+  4. Fill NEEDS-DOMAIN-KNOWLEDGE as the project grows
+
 See INIT_GUIDE.md for detailed guidance on each manual step.
 ```
 
@@ -303,6 +355,7 @@ See INIT_GUIDE.md for detailed guidance on each manual step.
 ## Supported Tech Stacks
 
 This init command supports projects using:
+- **Static HTML/CSS**: no package manager, no build step — triggers Step 1b CSS extraction
 - **JavaScript / TypeScript**: Node.js, React, Vue, Angular, Express, Next.js, etc.
 - **Python**: Django, FastAPI, Flask, scripts, data science
 - **Go**: standard library, Gin, Echo, gRPC services
